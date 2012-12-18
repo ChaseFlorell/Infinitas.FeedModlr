@@ -1,15 +1,18 @@
 ﻿// ***********************************************************************
 // Assembly         : Infinitas.FeedModlr
-// Author           : Chase
+// Author           : Chase Florell
 // Created          : 12-14-2012
 //
-// Last Modified By : Chase
+// Last Modified By : Chase Florell
 // Last Modified On : 12-18-2012
 // ***********************************************************************
 // <copyright file="SmugMugService.cs" company="Infinitas Advantage">
 //     Copyright (c) Infinitas Advantage. All rights reserved.
 // </copyright>
-// <summary>http://opensource.org/licenses/MIT</summary>
+// <summary>
+// This code file is licensed under the MIT License.
+// http://opensource.org/licenses/MIT
+// </summary>
 // ***********************************************************************
 namespace Infinitas.FeedModlr.SmugMug
 {
