@@ -4,7 +4,8 @@ This simple `C#` project is designed to help model public feeds into usable Mode
 
 ##Current Support:  
 - [SmugMug][1]
-   - Gallery Feed
+   - User Feeds
+      - Gallery Feed
 
 ##Usage:  
 
