@@ -31,11 +31,11 @@ namespace Infinitas.FeedModlr.Utilities
     public class XmlRssReader
     {
         /// <summary>
-        /// Deserializes the specified XML from a URI.
+        /// Deserializes the specified XML URI.
         /// </summary>
-        /// <typeparam name="T">Object Type to deserialize the feed to</typeparam>
+        /// <typeparam name="T">Model object used for deserialization</typeparam>
         /// <param name="xmlUri">The XML URI.</param>
-        /// <returns>An object deserialized as T</returns>
+        /// <returns>``0.</returns>
         public static T Deserialize<T>(string xmlUri)
         {
             var wc = new WebClient();

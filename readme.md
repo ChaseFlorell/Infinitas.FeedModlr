@@ -15,10 +15,10 @@ This simple `C#` project is designed to help model public feeds into usable Mode
     var smugMugService = new SmugMugService();
 
     // get's an easy to use SmugMug Model Object From the specified Gallery
-    var smGallery = smugMugService.GetSmugMugGallery("[smugMugGalleryID]", "[smugMugGalleryKey]");
+    var smGallery = smugMugService.GetSmugMugGallery<SmugMugGallery>("[smugMugGalleryID]", "[smugMugGalleryKey]");
 
     // get's the original SmugMug Model Object from the specified Gallery
-    var smOriginalGallery = smugMugService.GetSmugMugGallery("[smugMugGalleryID]", "[smugMugGalleryKey]", true);
+    var smGallery = smugMugService.GetSmugMugGallery<OriginalSmugMugGallery>("[smugMugGalleryID]", "[smugMugGalleryKey]");
 
 
 ---

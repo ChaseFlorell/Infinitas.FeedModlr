@@ -32,16 +32,19 @@ namespace Infinitas.FeedModlr.SmugMug
         /// <summary>
         /// The smugmug feed URL
         /// </summary>
+        /// <remarks>Even though the feed examples on the smugmug website state
+        /// that you can use "Atom", "KML", and "Open Search RSS", We're using
+        /// the standard RSS feed since it delivers the most amount of useful
+        /// information.</remarks>
         private const string SmugmugFeedUrl = "http://{0}.smugmug.com/hack/feed.mg?Type=gallery&Data={1}_{2}&format=rss";
         /// <summary>
-        /// The _smugmug nickname
+        /// The smugmug nickname
         /// </summary>
-        private readonly string _smugmugNickname = ConfigurationManager.AppSettings["smugMugNickname"];
+        private readonly string SmugmugNickname = ConfigurationManager.AppSettings["smugMugNickname"];
         /// <summary>
         /// Initializes a new instance of the <see cref="SmugMugService" /> class.
         /// </summary>
         public SmugMugService() { }
-
 
         /// <summary>
         /// Gets the smug mug gallery.
@@ -49,13 +52,14 @@ namespace Infinitas.FeedModlr.SmugMug
         /// <param name="smugMugAlbumId">The smug mug album id.</param>
         /// <param name="smugMugAlbumKey">The smug mug album key.</param>
         /// <param name="returnSmugMugOriginalGallery">if set to <c>true</c> [return smug mug original gallery].</param>
-        /// <returns>Object.</returns>
-        public Object GetSmugMugGallery(string smugMugAlbumId, string smugMugAlbumKey, bool returnSmugMugOriginalGallery)
+        /// <returns>Either a <see cref="SmugMugGallery" or a <see cref="OriginalSmugMugGallery"/>/>.</returns>
+        /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
+        public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey)
         {
             // request the RSS Feed
             var url = string.Format(
                 SmugmugFeedUrl,
-                this._smugmugNickname,
+                this.SmugmugNickname,
                 smugMugAlbumId,
                 smugMugAlbumKey);
 
@@ -63,22 +67,17 @@ namespace Infinitas.FeedModlr.SmugMug
             var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
 
 
-            if (returnSmugMugOriginalGallery)
+            if (typeof(T) == typeof(OriginalSmugMugGallery))
             {
-                return originalGallery;
+                return (T)(object)originalGallery;
             }
-            return MapSmugMugGalleries(originalGallery);
-        }
 
-        /// <summary>
-        /// Gets the smug mug gallery.
-        /// </summary>
-        /// <param name="albumID">The album ID.</param>
-        /// <param name="albumKey">The album key.</param>
-        /// <returns>Object.</returns>
-        public Object GetSmugMugGallery(string albumID, string albumKey)
-        {
-            return GetSmugMugGallery(albumID, albumKey, false);
+            if (typeof(T) == typeof(SmugMugGallery))
+            {
+                return (T)(object)MapSmugMugGalleries(originalGallery);
+            }
+
+            throw new Exception("Invalid Type specified, nothing to return.");
         }
 
         /// <summary>
