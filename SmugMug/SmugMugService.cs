@@ -9,7 +9,7 @@
 // <copyright file="SmugMugService.cs" company="Infinitas Advantage">
 //     Copyright (c) Infinitas Advantage. All rights reserved.
 // </copyright>
-// <summary></summary>
+// <summary>http://opensource.org/licenses/MIT</summary>
 // ***********************************************************************
 namespace Infinitas.FeedModlr.SmugMug
 {
@@ -76,28 +76,6 @@ namespace Infinitas.FeedModlr.SmugMug
         public Object GetSmugMugGallery(string albumID, string albumKey)
         {
             return GetSmugMugGallery(albumID, albumKey, false);
-        }
-
-        /// <summary>
-        /// Gets the single image from album.
-        /// </summary>
-        /// <param name="imageID">The image ID.</param>
-        /// <returns>SmugMugGallery.</returns>
-        public SmugMugGallery GetSingleImageFromAlbum(string imageID)
-        {
-            // decode the imageID
-            var decodedImageID = Encoding.Unicode.GetString(Convert.FromBase64String(imageID));
-
-            // todo, strip the albumID and albumKey from the decrypted imageID
-
-
-            // todo, grab the List<SmugMugGallery>
-
-            // todo, find the appropriate image from within the List
-
-            // todo, return a single Image.
-
-            return null;
         }
 
         /// <summary>

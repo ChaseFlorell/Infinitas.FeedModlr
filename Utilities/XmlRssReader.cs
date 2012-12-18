@@ -1,4 +1,17 @@
-﻿namespace Infinitas.FeedModlr.Utilities
+﻿// ***********************************************************************
+// Assembly         : Infinitas.FeedModlr
+// Author           : Chase
+// Created          : 12-14-2012
+//
+// Last Modified By : Chase
+// Last Modified On : 12-18-2012
+// ***********************************************************************
+// <copyright file="XmlRssReader.cs" company="Infinitas Advantage">
+//     Copyright (c) Infinitas Advantage. All rights reserved.
+// </copyright>
+// <summary>http://opensource.org/licenses/MIT</summary>
+// ***********************************************************************
+namespace Infinitas.FeedModlr.Utilities
 {
     #region usings
 
@@ -12,16 +25,14 @@
     /// <summary>
     /// Utility used to manage XML deserialization
     /// </summary>
-    /// <remarks></remarks>
     public class XmlRssReader
     {
         /// <summary>
         /// Deserializes the specified XML from a URI.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Object Type to deserialize the feed to</typeparam>
         /// <param name="xmlUri">The XML URI.</param>
         /// <returns>An object deserialized as T</returns>
-        /// <remarks></remarks>
         public static T Deserialize<T>(string xmlUri)
         {
             var wc = new WebClient();

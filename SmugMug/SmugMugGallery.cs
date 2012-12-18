@@ -9,7 +9,7 @@
 // <copyright file="SmugMugGallery.cs" company="Infinitas Advantage">
 //     Copyright (c) Infinitas Advantage. All rights reserved.
 // </copyright>
-// <summary></summary>
+// <summary>http://opensource.org/licenses/MIT</summary>
 // ***********************************************************************
 // This class is a more natural feeling model object for the SmugMug Gallery.
 namespace Infinitas.FeedModlr.SmugMug
