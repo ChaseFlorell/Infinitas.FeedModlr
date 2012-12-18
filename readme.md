@@ -13,5 +13,5 @@ This simple `C#` project is designed to help model public feed into usable Model
 
 <!-- Links-->
 
-  <!-- SmugMug RSS Help -->
-  [1]: http://help.smugmug.com/customer/portal/articles/84258-feed-examples
+<!-- SmugMug RSS Help -->
+[1]: http://help.smugmug.com/customer/portal/articles/84258-feed-examples
