@@ -1,13 +1,12 @@
 #Infinitas.FeedModlr#
 
-This simple `C#` project is designed to help model public feed into usable Model Objects for your projects.
+This simple `C#` project is designed to help model public feeds into usable Model Objects for your projects.
 
 ##Current Support:  
 - [SmugMug][1]
    - Gallery Feed
 
 ##Usage:  
-Using the modlr is quite simple. If you'd like to get a gallery, simply do the following.
 
 #####SmugMug Examples:
 
