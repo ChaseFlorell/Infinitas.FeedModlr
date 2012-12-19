@@ -36,11 +36,8 @@ namespace Infinitas.FeedModlr.SmugMug
         /// that you can use "Atom", "KML", and "Open Search RSS", We're using
         /// the standard RSS feed since it delivers the most amount of useful
         /// information.</remarks>
-        private const string SmugmugFeedUrl = "http://{0}.smugmug.com/hack/feed.mg?Type=gallery&Data={1}_{2}&format=rss";
-        /// <summary>
-        /// The smugmug nickname
-        /// </summary>
-        private readonly string SmugmugNickname = ConfigurationManager.AppSettings["smugMugNickname"];
+        private const string SmugmugFeedUrl = "http://api.smugmug.com/hack/feed.mg?Type=gallery&Data={0}_{1}&format=rss";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SmugMugService" /> class.
         /// </summary>
@@ -56,27 +53,26 @@ namespace Infinitas.FeedModlr.SmugMug
         /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
         public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey)
         {
-            // request the RSS Feed
+            // Format the SmugmugFeedUrl with the appropriate input information
             var url = string.Format(
                 SmugmugFeedUrl,
-                this.SmugmugNickname,
                 smugMugAlbumId,
                 smugMugAlbumKey);
 
-            // Deserialize the RSS feed into the appropriate model
+            // Deserialize the RSS feed into an OriginalSmugMugGallery Model
             var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
 
-
-            if (typeof(T) == typeof(OriginalSmugMugGallery))
-            {
+            // returns an OriginalSmugMugGallery if requested
+            if (typeof(T) == typeof(OriginalSmugMugGallery)) {
                 return (T)(object)originalGallery;
             }
 
-            if (typeof(T) == typeof(SmugMugGallery))
-            {
+            // Returns a SmugMugGallery if requested
+            if (typeof(T) == typeof(SmugMugGallery))  {
                 return (T)(object)MapSmugMugGalleries(originalGallery);
             }
 
+            // If the request was anything but the above Types, throw an error.
             throw new Exception("Invalid Type specified, nothing to return.");
         }
 
