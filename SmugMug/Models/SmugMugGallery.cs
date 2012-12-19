@@ -14,7 +14,7 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug
+namespace Infinitas.FeedModlr.SmugMug.Models
 {
     using System.Collections.Generic;
     /// <summary>

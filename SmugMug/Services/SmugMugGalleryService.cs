@@ -14,19 +14,17 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug
+namespace Infinitas.FeedModlr.SmugMug.Services
 {
+    using Infinitas.FeedModlr.SmugMug.Models;
     using Infinitas.FeedModlr.Utilities;
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Class SmugMugService
     /// </summary>
-    public class SmugMugService
+    public class SmugMugGalleryService
     {
         // SmugMug specific information
         /// <summary>
@@ -41,16 +39,16 @@ namespace Infinitas.FeedModlr.SmugMug
         /// <summary>
         /// Initializes a new instance of the <see cref="SmugMugService" /> class.
         /// </summary>
-        public SmugMugService() { }
+        public SmugMugGalleryService() { }
 
         /// <summary>
         /// Gets the smug mug gallery.
         /// </summary>
         /// <param name="smugMugAlbumId">The smug mug album id.</param>
         /// <param name="smugMugAlbumKey">The smug mug album key.</param>
-        /// <param name="returnSmugMugOriginalGallery">if set to <c>true</c> [return smug mug original gallery].</param>
         /// <returns>Either a <see cref="SmugMugGallery" or a <see cref="OriginalSmugMugGallery"/>/>.</returns>
         /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
+        /// <exception cref="System.Exception">Invalid Type specified, nothing to return.</exception>
         public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey)
         {
             // Format the SmugmugFeedUrl with the appropriate input information
