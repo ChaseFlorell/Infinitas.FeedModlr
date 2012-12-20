@@ -61,12 +61,14 @@ namespace Infinitas.FeedModlr.SmugMug.Services
             var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
 
             // returns an OriginalSmugMugGallery if requested
-            if (typeof(T) == typeof(OriginalSmugMugGallery)) {
+            if (typeof(T) == typeof(OriginalSmugMugGallery))
+            {
                 return (T)(object)originalGallery;
             }
 
             // Returns a SmugMugGallery if requested
-            if (typeof(T) == typeof(SmugMugGallery))  {
+            if (typeof(T) == typeof(SmugMugGallery))
+            {
                 return (T)(object)MapSmugMugGalleries(originalGallery);
             }
 
@@ -82,7 +84,8 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         /// <param name="smugMugImageGuid">The smug mug image GUID.</param>
         /// <returns><see cref="SmugMugGallery.Image"/>.</returns>
         /// <exception cref="System.Exception">Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.</exception>
-        public SmugMugGallery.Image GetSmugMugImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid){
+        public SmugMugGallery.Image GetSmugMugGalleryImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid)
+        {
 
             // Grab all Images from the specified gallery
             var smGalleryImages = GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey).Images;
@@ -126,15 +129,15 @@ namespace Infinitas.FeedModlr.SmugMug.Services
             gallery.LastBuildDate = originalSmugMugGallery.Channel.LastBuildDate;
             gallery.Generator = originalSmugMugGallery.Channel.Generator;
             gallery.Copyright = originalSmugMugGallery.Channel.Copyright;
-            gallery.GalleryImage = new SmugMugGallery._GalleryImage();
+
             gallery.GalleryImage.Url = originalSmugMugGallery.Channel.Image.Url;
             gallery.GalleryImage.Title = originalSmugMugGallery.Channel.Image.Title;
             gallery.GalleryImage.Link = originalSmugMugGallery.Channel.Image.Link;
-            gallery.AtomLinks = new SmugMugGallery._AtomLinks();
+
             gallery.AtomLinks.Rel = originalSmugMugGallery.Channel.AtomLink.Rel;
             gallery.AtomLinks.Href = originalSmugMugGallery.Channel.AtomLink.Href;
             gallery.AtomLinks.Type = originalSmugMugGallery.Channel.AtomLink.Type;
-            gallery.Images = new List<SmugMugGallery.Image>();
+
             foreach (var img in originalSmugMugGallery.Channel.Items)
             {
                 var galleryImage = new SmugMugGallery.Image();
@@ -144,21 +147,21 @@ namespace Infinitas.FeedModlr.SmugMug.Services
                 galleryImage.Category = img.Category;
                 galleryImage.PubDate = img.PubDate;
                 galleryImage.Author = img.Author;
-                galleryImage.Guid = new SmugMugGallery.Image._Guid();
+
                 galleryImage.Guid.value = img.Guid.ToString();
                 galleryImage.Guid.isPermaLink = img.Guid.isPermaLink;
                 galleryImage.DateTimeOriginal = img.DateTimeOriginal;
 
                 var imgType = new[] {
-                    galleryImage.TinyImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.ThumbnailImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.SmallImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.MediumImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.LargeImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.ExtraLargeImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.TwoExtraLargeImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.ThreeExtraLargeImage = new SmugMugGallery.Image._Img(),
-                    galleryImage.OriginalImage = new SmugMugGallery.Image._Img(),
+                    galleryImage.TinyImage,
+                    galleryImage.ThumbnailImage,
+                    galleryImage.SmallImage,
+                    galleryImage.MediumImage,
+                    galleryImage.LargeImage,
+                    galleryImage.ExtraLargeImage,
+                    galleryImage.TwoExtraLargeImage,
+                    galleryImage.ThreeExtraLargeImage,
+                    galleryImage.OriginalImage,
                 };
 
                 var count = 0;
@@ -174,18 +177,18 @@ namespace Infinitas.FeedModlr.SmugMug.Services
                     count++;
                 }
                 {
-                    galleryImage.Thumbnail = new SmugMugGallery.Image._Thumbnail();
+
                     galleryImage.Thumbnail.Url = img.Thumbnail.Url;
                     galleryImage.Thumbnail.Width = img.Thumbnail.Width;
                     galleryImage.Thumbnail.Height = img.Thumbnail.Height;
                 }
                 {
-                    galleryImage.Copyright = new SmugMugGallery.Image._Copyright();
+
                     galleryImage.Copyright.value = img.Copyright.ToString();
                     galleryImage.Copyright.Url = img.Copyright.Url;
                 }
                 {
-                    galleryImage.Credit = new SmugMugGallery.Image._Credit();
+
                     galleryImage.Credit.value = img.Credit.ToString();
                     galleryImage.Credit.Role = img.Credit.Role;
                 }

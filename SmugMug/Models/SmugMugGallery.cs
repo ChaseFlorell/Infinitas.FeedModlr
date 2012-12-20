@@ -23,6 +23,12 @@ namespace Infinitas.FeedModlr.SmugMug.Models
     /// <remarks>This class is a more natural feeling model object for the SmugMug Gallery.</remarks>
     public class SmugMugGallery
     {
+        public SmugMugGallery()
+        {
+            GalleryImage = new _GalleryImage();
+            AtomLinks = new _AtomLinks();
+            Images = new List<Image>();
+        }
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
@@ -130,6 +136,21 @@ namespace Infinitas.FeedModlr.SmugMug.Models
         /// </summary>
         public class Image
         {
+            public Image() {
+                Guid = new _Guid();
+                TinyImage = new _Img();
+                ThumbnailImage = new _Img();
+                SmallImage = new _Img();
+                MediumImage = new _Img();
+                LargeImage = new _Img();
+                ExtraLargeImage = new _Img();
+                TwoExtraLargeImage = new _Img();
+                ThreeExtraLargeImage = new _Img();
+                OriginalImage = new _Img();
+                Thumbnail = new _Thumbnail();
+                Copyright = new _Copyright();
+                Credit = new _Credit();
+            }
             /// <summary>
             /// Gets or sets the title.
             /// </summary>
