@@ -45,13 +45,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmugMug\Models\OriginalSmugMugGallery.cs" />
     <Compile Include="SmugMug\Models\SmugMugGallery.cs" />
-    <Compile Include="SmugMug\SmugMugService.cs" />
+    <Compile Include="SmugMug\Services\SmugMugGalleryService.cs" />
     <Compile Include="Utilities\XmlRssReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SmugMug\readme.md" />
+    <None Include="Vimeo\readme.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Vimeo\Models\" />
+    <Folder Include="Vimeo\Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

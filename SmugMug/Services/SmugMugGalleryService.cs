@@ -75,6 +75,39 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         }
 
         /// <summary>
+        /// Gets the smug mug image by GUID.
+        /// </summary>
+        /// <param name="smugMugAlbumId">The smug mug album id.</param>
+        /// <param name="smugMugAlbumKey">The smug mug album key.</param>
+        /// <param name="smugMugImageGuid">The smug mug image GUID.</param>
+        /// <returns><see cref="SmugMugGallery.Image"/>.</returns>
+        /// <exception cref="System.Exception">Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.</exception>
+        public SmugMugGallery.Image GetSmugMugImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid){
+
+            // Grab all Images from the specified gallery
+            var smGalleryImages = GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey).Images;
+            SmugMugGallery.Image imageToReturn = null;
+
+            // Loop through the images to find the one specified by the smugMugImageGuid
+            foreach (var image in smGalleryImages)
+            {
+                if (smugMugImageGuid == image.Guid.ToString())
+                {
+                    imageToReturn = image;
+                }
+            }
+
+            // Throw an error if an invalid image was specified
+            if (imageToReturn == null)
+            {
+                throw new Exception("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
+            }
+
+            // Return the image if no error was thrown.
+            return imageToReturn;
+        }
+
+        /// <summary>
         /// Maps the smug mug galleries.
         /// </summary>
         /// <param name="originalSmugMugGallery">The original smug mug gallery.</param>
