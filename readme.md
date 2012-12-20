@@ -23,6 +23,9 @@ This simple `C#` project is designed to help model public feeds into usable Mode
     // get's the original SmugMug Model Object from the specified Gallery
     var smGallery = smugMugGalleryService.GetSmugMugGallery<OriginalSmugMugGallery>("[smugMugGalleryID]", "[smugMugGalleryKey]");
 
+    // get's a single image based on the SmugMug Guid.
+    var smImage = smugMugGalleryService.GetSmugMugImageByGuid("[smugMugGalleryID]", "[smugMugGalleryKey]", "[smugMugGalleryImageGuid]");
+
 
 ---
 <p>Copyright (c) 2012 Chase Florell</p>
