@@ -14,8 +14,7 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.Utilities
-{
+namespace Infinitas.FeedModlr.Utilities {
     #region usings
 
     using System.IO;
@@ -28,21 +27,18 @@ namespace Infinitas.FeedModlr.Utilities
     /// <summary>
     /// Utility used to manage XML deserialization
     /// </summary>
-    public class XmlRssReader
-    {
+    public class XmlRssReader {
         /// <summary>
         /// Deserializes the specified XML URI.
         /// </summary>
         /// <typeparam name="T">Model object used for deserialization</typeparam>
         /// <param name="xmlUri">The XML URI.</param>
-        /// <returns>``0.</returns>
-        public static T Deserialize<T>(string xmlUri)
-        {
+        /// <returns>Appropriate object based on requested Type (T).</returns>
+        public static T Deserialize<T>(string xmlUri) {
             var wc = new WebClient();
             var result = wc.DownloadString(xmlUri);
 
-            using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(result)))
-            {
+            using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(result))) {
                 var xmlSerializer = new XmlSerializer(typeof(T));
                 var obj = (T)xmlSerializer.Deserialize(memoryStream);
                 return obj;

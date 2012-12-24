@@ -24,7 +24,6 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
     /// </summary>
     public class SmugMugGalleryService {
 
-        // SmugMug specific information
         /// <summary>
         /// The smugmug feed URL
         /// </summary>
@@ -42,9 +41,10 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
         /// <summary>
         /// Gets the smug mug gallery.
         /// </summary>
+        /// <typeparam name="T">Can be either <see cref="OriginalSmugMugGallery"/> or <see cref="SmugMugGallery"/></typeparam>
         /// <param name="smugMugAlbumId">The smug mug album id.</param>
         /// <param name="smugMugAlbumKey">The smug mug album key.</param>
-        /// <returns>Either a <see cref="SmugMugGallery"/> or a <see cref="OriginalSmugMugGallery"/>.</returns>
+        /// <returns>A populated model of either <see cref="OriginalSmugMugGallery"/> or <see cref="SmugMugGallery"/></returns>
         /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
         /// <exception cref="System.Exception">Invalid Type specified, nothing to return.</exception>
         public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey) {
