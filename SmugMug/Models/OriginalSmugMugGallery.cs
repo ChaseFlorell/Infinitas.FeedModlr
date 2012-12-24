@@ -14,8 +14,7 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug.Models
-{
+namespace Infinitas.FeedModlr.SmugMug.Models {
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
@@ -23,8 +22,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
     /// Class OriginalSmugMugGallery
     /// </summary>
     [XmlRoot("rss")]
-    public class OriginalSmugMugGallery
-    {
+    public class OriginalSmugMugGallery {
         /// <summary>
         /// Gets or sets the channel.
         /// </summary>
@@ -36,8 +34,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
         /// Class Channels
         /// </summary>
         /// <remarks>http://opensource.org/licenses/MIT</remarks>
-        public class Channels
-        {
+        public class Channels {
             /// <summary>
             /// Gets or sets the title.
             /// </summary>
@@ -121,8 +118,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// Class _Image
             /// </summary>
             /// <remarks>http://opensource.org/licenses/MIT</remarks>
-            public class _Image
-            {
+            public class _Image {
                 /// <summary>
                 /// Gets or sets the URL.
                 /// </summary>
@@ -159,8 +155,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// Class _AtomLinks
             /// </summary>
             /// <remarks>http://opensource.org/licenses/MIT</remarks>
-            public class _AtomLinks
-            {
+            public class _AtomLinks {
 
                 /// <summary>
                 /// Gets or sets the rel.
@@ -198,8 +193,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// Class Item
             /// </summary>
             /// <remarks>http://opensource.org/licenses/MIT</remarks>
-            public class Item
-            {
+            public class Item {
                 /// <summary>
                 /// Gets or sets the title.
                 /// </summary>
@@ -259,23 +253,21 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Class _Guid
                 /// </summary>
                 /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                public class _Guid
-                {
+                public class _Guid {
                     /// <summary>
                     /// Gets or sets the value.
                     /// </summary>
                     /// <value>The value.</value>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
                     [XmlTextAttribute]
-                   public string value { get; set; }
+                    public string value { get; set; }
 
                     /// <summary>
                     /// Returns a <see cref="System.String" /> that represents this instance.
                     /// </summary>
                     /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                    public override string ToString()
-                    {  return value.ToString(); }
+                    public override string ToString() { return value.ToString(); }
 
                     /// <summary>
                     /// Gets or sets a value indicating whether this instance is perma link.
@@ -305,8 +297,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Class _Group
                 /// </summary>
                 /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                public class _Group
-                {
+                public class _Group {
                     /// <summary>
                     /// Gets or sets the contents.
                     /// </summary>
@@ -318,8 +309,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                     /// Class Content
                     /// </summary>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                    public class Content
-                    {
+                    public class Content {
                         /// <summary>
                         /// Gets or sets the URL.
                         /// </summary>
@@ -405,8 +395,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Class _Thumbnail
                 /// </summary>
                 /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                public class _Thumbnail
-                {
+                public class _Thumbnail {
                     /// <summary>
                     /// Gets or sets the URL.
                     /// </summary>
@@ -452,22 +441,20 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Class _Copyright
                 /// </summary>
                 /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                public class _Copyright
-                {
+                public class _Copyright {
                     /// <summary>
                     /// Gets or sets the value.
                     /// </summary>
                     /// <value>The value.</value>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
                     [XmlTextAttribute]
-                   public string value { get; set; }
+                    public string value { get; set; }
                     /// <summary>
                     /// Returns a <see cref="System.String" /> that represents this instance.
                     /// </summary>
                     /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                    public override string ToString()
-                    { return value.ToString(); }
+                    public override string ToString() { return value.ToString(); }
 
                     /// <summary>
                     /// Gets or sets the URL.
@@ -489,22 +476,20 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Class _Credit
                 /// </summary>
                 /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                public class _Credit
-                {
+                public class _Credit {
                     /// <summary>
                     /// Gets or sets the value.
                     /// </summary>
                     /// <value>The value.</value>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
                     [XmlTextAttribute]
-                   public string value { get; set; }
+                    public string value { get; set; }
                     /// <summary>
                     /// Returns a <see cref="System.String" /> that represents this instance.
                     /// </summary>
                     /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
                     /// <remarks>http://opensource.org/licenses/MIT</remarks>
-                    public override string ToString()
-                    { return value.ToString(); }
+                    public override string ToString() { return value.ToString(); }
 
                     /// <summary>
                     /// Gets or sets the role.

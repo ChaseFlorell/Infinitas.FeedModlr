@@ -14,17 +14,14 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug.Models
-{
+namespace Infinitas.FeedModlr.SmugMug.Models {
     using System.Collections.Generic;
     /// <summary>
     /// Class SmugMugGallery
     /// </summary>
     /// <remarks>This class is a more natural feeling model object for the SmugMug Gallery.</remarks>
-    public class SmugMugGallery
-    {
-        public SmugMugGallery()
-        {
+    public class SmugMugGallery {
+        public SmugMugGallery() {
             GalleryImage = new _GalleryImage();
             AtomLinks = new _AtomLinks();
             Images = new List<Image>();
@@ -82,8 +79,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
         /// <summary>
         /// Class _GalleryImage
         /// </summary>
-        public class _GalleryImage
-        {
+        public class _GalleryImage {
             /// <summary>
             /// Gets or sets the URL.
             /// </summary>
@@ -108,8 +104,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
         /// <summary>
         /// Class _AtomLinks
         /// </summary>
-        public class _AtomLinks
-        {
+        public class _AtomLinks {
             /// <summary>
             /// Gets or sets the rel.
             /// </summary>
@@ -134,8 +129,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
         /// <summary>
         /// Class Image
         /// </summary>
-        public class Image
-        {
+        public class Image {
             public Image() {
                 Guid = new _Guid();
                 TinyImage = new _Img();
@@ -189,8 +183,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// <summary>
             /// Class _Guid
             /// </summary>
-            public class _Guid
-            {
+            public class _Guid {
                 /// <summary>
                 /// Gets or sets the value.
                 /// </summary>
@@ -200,8 +193,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Returns a <see cref="System.String" /> that represents this instance.
                 /// </summary>
                 /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-                public override string ToString()
-                {
+                public override string ToString() {
                     return value.ToString();
                 }
                 /// <summary>
@@ -263,8 +255,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// <summary>
             /// Class _Img
             /// </summary>
-            public class _Img
-            {
+            public class _Img {
                 /// <summary>
                 /// Gets or sets the URL.
                 /// </summary>
@@ -319,8 +310,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// <summary>
             /// Class _Thumbnail
             /// </summary>
-            public class _Thumbnail
-            {
+            public class _Thumbnail {
                 /// <summary>
                 /// Gets or sets the URL.
                 /// </summary>
@@ -350,8 +340,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// <summary>
             /// Class _Copyright
             /// </summary>
-            public class _Copyright
-            {
+            public class _Copyright {
                 /// <summary>
                 /// Gets or sets the value.
                 /// </summary>
@@ -361,8 +350,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Returns a <see cref="System.String" /> that represents this instance.
                 /// </summary>
                 /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-                public override string ToString()
-                {
+                public override string ToString() {
                     return value.ToString();
                 }
                 /// <summary>
@@ -379,8 +367,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
             /// <summary>
             /// Class _Credit
             /// </summary>
-            public class _Credit
-            {
+            public class _Credit {
                 /// <summary>
                 /// Gets or sets the value.
                 /// </summary>
@@ -390,8 +377,7 @@ namespace Infinitas.FeedModlr.SmugMug.Models
                 /// Returns a <see cref="System.String" /> that represents this instance.
                 /// </summary>
                 /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-                public override string ToString()
-                {
+                public override string ToString() {
                     return value.ToString();
                 }
                 /// <summary>

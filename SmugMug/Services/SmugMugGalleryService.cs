@@ -14,18 +14,16 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug.Services
-{
+namespace Infinitas.FeedModlr.SmugMug.Services {
     using Infinitas.FeedModlr.SmugMug.Models;
     using Infinitas.FeedModlr.Utilities;
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Class SmugMugService
     /// </summary>
-    public class SmugMugGalleryService
-    {
+    public class SmugMugGalleryService {
+
         // SmugMug specific information
         /// <summary>
         /// The smugmug feed URL
@@ -34,26 +32,25 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         /// that you can use "Atom", "KML", and "Open Search RSS", We're using
         /// the standard RSS feed since it delivers the most amount of useful
         /// information.</remarks>
-        private const string SmugmugFeedUrl = "http://api.smugmug.com/hack/feed.mg?Type=gallery&Data={0}_{1}&format=rss";
+        private const string SmugMugGalleryFeedUrl = "http://api.smugmug.com/hack/feed.mg?Type=gallery&Data={0}_{1}&format=rss";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SmugMugService" /> class.
+        /// The smug mug recent galleries feed URL
         /// </summary>
-        public SmugMugGalleryService() { }
+        private const string SmugMugRecentGalleriesFeedUrl = "http://api.smugmug.com/hack/feed.mg?Type=nickname&Data={0}&format=rss";
 
         /// <summary>
         /// Gets the smug mug gallery.
         /// </summary>
         /// <param name="smugMugAlbumId">The smug mug album id.</param>
         /// <param name="smugMugAlbumKey">The smug mug album key.</param>
-        /// <returns>Either a <see cref="SmugMugGallery" or a <see cref="OriginalSmugMugGallery"/>/>.</returns>
+        /// <returns>Either a <see cref="SmugMugGallery"/> or a <see cref="OriginalSmugMugGallery"/>.</returns>
         /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
         /// <exception cref="System.Exception">Invalid Type specified, nothing to return.</exception>
-        public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey)
-        {
-            // Format the SmugmugFeedUrl with the appropriate input information
+        public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey) {
+            // Format the SmugMugFeedUrl with the appropriate input information
             var url = string.Format(
-                SmugmugFeedUrl,
+                SmugMugGalleryFeedUrl,
                 smugMugAlbumId,
                 smugMugAlbumKey);
 
@@ -61,14 +58,12 @@ namespace Infinitas.FeedModlr.SmugMug.Services
             var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
 
             // returns an OriginalSmugMugGallery if requested
-            if (typeof(T) == typeof(OriginalSmugMugGallery))
-            {
+            if (typeof(T) == typeof(OriginalSmugMugGallery)) {
                 return (T)(object)originalGallery;
             }
 
             // Returns a SmugMugGallery if requested
-            if (typeof(T) == typeof(SmugMugGallery))
-            {
+            if (typeof(T) == typeof(SmugMugGallery)) {
                 return (T)(object)MapSmugMugGalleries(originalGallery);
             }
 
@@ -84,25 +79,21 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         /// <param name="smugMugImageGuid">The smug mug image GUID.</param>
         /// <returns><see cref="SmugMugGallery.Image"/>.</returns>
         /// <exception cref="System.Exception">Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.</exception>
-        public SmugMugGallery.Image GetSmugMugGalleryImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid)
-        {
+        public SmugMugGallery.Image GetSmugMugGalleryImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid) {
 
             // Grab all Images from the specified gallery
             var smGalleryImages = GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey).Images;
             SmugMugGallery.Image imageToReturn = null;
 
             // Loop through the images to find the one specified by the smugMugImageGuid
-            foreach (var image in smGalleryImages)
-            {
-                if (smugMugImageGuid == image.Guid.ToString())
-                {
+            foreach (var image in smGalleryImages) {
+                if (smugMugImageGuid == image.Guid.ToString()) {
                     imageToReturn = image;
                 }
             }
 
             // Throw an error if an invalid image was specified
-            if (imageToReturn == null)
-            {
+            if (imageToReturn == null) {
                 throw new Exception("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
             }
 
@@ -110,98 +101,108 @@ namespace Infinitas.FeedModlr.SmugMug.Services
             return imageToReturn;
         }
 
+        public OriginalSmugMugGallery GetSmugMugRecentGalleries(string smugMugNickname) {
+            var url = string.Format(
+                SmugMugRecentGalleriesFeedUrl,
+                smugMugNickname);
+
+            var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
+
+            return originalGallery;
+        }
+
+
         /// <summary>
         /// Maps the smug mug galleries.
         /// </summary>
         /// <param name="originalSmugMugGallery">The original smug mug gallery.</param>
         /// <returns>SmugMugGallery.</returns>
-        private SmugMugGallery MapSmugMugGalleries(OriginalSmugMugGallery originalSmugMugGallery)
-        {
-            var gallery = new SmugMugGallery();
+        private static SmugMugGallery MapSmugMugGalleries(OriginalSmugMugGallery originalSmugMugGallery) {
+            // generate a new Gallery Model
+            var gallery = new SmugMugGallery {
+                Title = originalSmugMugGallery.Channel.Title,
+                Link = originalSmugMugGallery.Channel.Link,
+                Description = originalSmugMugGallery.Channel.Description,
+                Icon = originalSmugMugGallery.Channel.Icon,
+                Category = originalSmugMugGallery.Channel.Category,
+                PubDate = originalSmugMugGallery.Channel.PubDate,
+                LastBuildDate = originalSmugMugGallery.Channel.LastBuildDate,
+                Generator = originalSmugMugGallery.Channel.Generator,
+                Copyright = originalSmugMugGallery.Channel.Copyright,
+                GalleryImage = {
+                    Url = originalSmugMugGallery.Channel.Image.Url,
+                    Title = originalSmugMugGallery.Channel.Image.Title,
+                    Link = originalSmugMugGallery.Channel.Image.Link
+                },
+                AtomLinks = {
+                    Rel = originalSmugMugGallery.Channel.AtomLink.Rel,
+                    Href = originalSmugMugGallery.Channel.AtomLink.Href,
+                    Type = originalSmugMugGallery.Channel.AtomLink.Type
+                }
+            };
 
-            // Map the original model to the new one
-            gallery.Title = originalSmugMugGallery.Channel.Title;
-            gallery.Link = originalSmugMugGallery.Channel.Link;
-            gallery.Description = originalSmugMugGallery.Channel.Description;
-            gallery.Icon = originalSmugMugGallery.Channel.Icon;
-            gallery.Category = originalSmugMugGallery.Channel.Category;
-            gallery.PubDate = originalSmugMugGallery.Channel.PubDate;
-            gallery.LastBuildDate = originalSmugMugGallery.Channel.LastBuildDate;
-            gallery.Generator = originalSmugMugGallery.Channel.Generator;
-            gallery.Copyright = originalSmugMugGallery.Channel.Copyright;
-
-            gallery.GalleryImage.Url = originalSmugMugGallery.Channel.Image.Url;
-            gallery.GalleryImage.Title = originalSmugMugGallery.Channel.Image.Title;
-            gallery.GalleryImage.Link = originalSmugMugGallery.Channel.Image.Link;
-
-            gallery.AtomLinks.Rel = originalSmugMugGallery.Channel.AtomLink.Rel;
-            gallery.AtomLinks.Href = originalSmugMugGallery.Channel.AtomLink.Href;
-            gallery.AtomLinks.Type = originalSmugMugGallery.Channel.AtomLink.Type;
-
-            foreach (var img in originalSmugMugGallery.Channel.Items)
+            // Create a new list of images and add them to the
+            // List<SmugMugGallery.Images>();
             {
-                var galleryImage = new SmugMugGallery.Image();
-                galleryImage.Title = img.Title;
-                galleryImage.Link = img.Link;
-                galleryImage.Description = img.Description;
-                galleryImage.Category = img.Category;
-                galleryImage.PubDate = img.PubDate;
-                galleryImage.Author = img.Author;
+                foreach (var img in originalSmugMugGallery.Channel.Items) {
 
-                galleryImage.Guid.value = img.Guid.ToString();
-                galleryImage.Guid.isPermaLink = img.Guid.isPermaLink;
-                galleryImage.DateTimeOriginal = img.DateTimeOriginal;
+                    var image = new SmugMugGallery.Image {
+                        Title = img.Title,
+                        Link = img.Link,
+                        Description = img.Description,
+                        Category = img.Category,
+                        PubDate = img.PubDate,
+                        Author = img.Author,
+                        Guid = { value = img.Guid.ToString(), isPermaLink = img.Guid.isPermaLink },
+                        DateTimeOriginal = img.DateTimeOriginal,
+                        Thumbnail = {
+                            Url = img.Thumbnail.Url,
+                            Width = img.Thumbnail.Width,
+                            Height = img.Thumbnail.Height
+                        },
+                        Copyright = { value = img.Copyright.ToString(), Url = img.Copyright.Url },
+                        Credit = { value = img.Credit.ToString(), Role = img.Credit.Role },
+                        HtmlTitle = img.HtmlTitle,
+                        Text = img.Text,
+                        Keywords = img.Keywords
+                    };
 
-                var imgType = new[] {
-                    galleryImage.TinyImage,
-                    galleryImage.ThumbnailImage,
-                    galleryImage.SmallImage,
-                    galleryImage.MediumImage,
-                    galleryImage.LargeImage,
-                    galleryImage.ExtraLargeImage,
-                    galleryImage.TwoExtraLargeImage,
-                    galleryImage.ThreeExtraLargeImage,
-                    galleryImage.OriginalImage,
-                };
+                    // Each image size needs to be created within the array
+                    var imgType = new[]
+                        {
+                            image.TinyImage, 
+                            image.ThumbnailImage, 
+                            image.SmallImage, 
+                            image.MediumImage, 
+                            image.LargeImage,
+                            image.ExtraLargeImage, 
+                            image.TwoExtraLargeImage, 
+                            image.ThreeExtraLargeImage,
+                            image.OriginalImage,
+                        };
 
-                var count = 0;
-                foreach (var i in img.Group.Contents)
-                {
-                    imgType[count].Url = i.Url;
-                    imgType[count].FileSize = i.FileSize;
-                    imgType[count].Type = i.Type;
-                    imgType[count].Medium = i.Medium;
-                    imgType[count].Width = i.Width;
-                    imgType[count].Height = i.Height;
-                    imgType[count].Hash = i.Hash;
-                    count++;
+                    // loop through the original image list and add them to the
+                    // new image list. If the original list stops early because
+                    // it doesn't contain images after a certain size. The
+                    // remaining sizes in the new list will simply be null.
+                    var count = 0;
+                    foreach (var i in img.Group.Contents) {
+                        imgType[count].Url = i.Url;
+                        imgType[count].FileSize = i.FileSize;
+                        imgType[count].Type = i.Type;
+                        imgType[count].Medium = i.Medium;
+                        imgType[count].Width = i.Width;
+                        imgType[count].Height = i.Height;
+                        imgType[count].Hash = i.Hash;
+                        count++;
+                    }
+
+                    gallery.Images.Add(image);
                 }
-                {
-
-                    galleryImage.Thumbnail.Url = img.Thumbnail.Url;
-                    galleryImage.Thumbnail.Width = img.Thumbnail.Width;
-                    galleryImage.Thumbnail.Height = img.Thumbnail.Height;
-                }
-                {
-
-                    galleryImage.Copyright.value = img.Copyright.ToString();
-                    galleryImage.Copyright.Url = img.Copyright.Url;
-                }
-                {
-
-                    galleryImage.Credit.value = img.Credit.ToString();
-                    galleryImage.Credit.Role = img.Credit.Role;
-                }
-
-                galleryImage.HtmlTitle = img.HtmlTitle;
-                galleryImage.Text = img.Text;
-                galleryImage.Keywords = img.Keywords;
-                gallery.Images.Add(galleryImage);
-
             }
 
+            // Send back the completed gallery
             return gallery;
-
         }
     }
 }
