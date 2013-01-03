@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infinitas.RssModlr", "Infinitas.RssModlr.csproj", "{118921F1-EF64-4008-B917-3B9675899B76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infinitas.FeedModlr", "Infinitas.FeedModlr.csproj", "{118921F1-EF64-4008-B917-3B9675899B76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

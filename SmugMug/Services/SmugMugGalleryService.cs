@@ -71,6 +71,16 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
             throw new Exception("Invalid Type specified, nothing to return.");
         }
 
+		/// <summary>
+		/// Gets the smug mug gallery.
+		/// </summary>
+		/// <returns> The smug mug gallery. </returns>
+		/// <param name='smugMugAlbumId'> mug mug album identifier. </param>
+		/// <param name='smugMugAlbumKey'> Smug mug album key. </param>
+		public SmugMugGallery GetSmugMugGallery(string smugMugAlbumId, string smugMugAlbumKey) {
+			return GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey);
+		}
+
         /// <summary>
         /// Gets the smug mug image by GUID.
         /// </summary>
@@ -83,22 +93,16 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
 
             // Grab all Images from the specified gallery
             var smGalleryImages = GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey).Images;
-            SmugMugGallery.Image imageToReturn = null;
 
             // Loop through the images to find the one specified by the smugMugImageGuid
             foreach (var image in smGalleryImages) {
                 if (smugMugImageGuid == image.Guid.ToString()) {
-                    imageToReturn = image;
+                    return image;
                 }
             }
 
             // Throw an error if an invalid image was specified
-            if (imageToReturn == null) {
-                throw new Exception("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
-            }
-
-            // Return the image if no error was thrown.
-            return imageToReturn;
+			throw new Exception("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
         }
 
         public OriginalSmugMugGallery GetSmugMugRecentGalleries(string smugMugNickname) {
@@ -106,9 +110,7 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
                 SmugMugRecentGalleriesFeedUrl,
                 smugMugNickname);
 
-            var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
-
-            return originalGallery;
+            return XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
         }
 
 
