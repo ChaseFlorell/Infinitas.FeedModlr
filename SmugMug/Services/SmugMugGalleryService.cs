@@ -14,7 +14,8 @@
 // http://opensource.org/licenses/MIT
 // </summary>
 // ***********************************************************************
-namespace Infinitas.FeedModlr.SmugMug.Services {
+namespace Infinitas.FeedModlr.SmugMug.Services
+{
     using Infinitas.FeedModlr.SmugMug.Models;
     using Infinitas.FeedModlr.Utilities;
     using System;
@@ -22,7 +23,8 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
     /// <summary>
     /// Class SmugMugService
     /// </summary>
-    public class SmugMugGalleryService {
+    public class SmugMugGalleryService
+    {
 
         /// <summary>
         /// The smugmug feed URL
@@ -47,15 +49,16 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
         /// <returns>A populated model of either <see cref="OriginalSmugMugGallery"/> or <see cref="SmugMugGallery"/></returns>
         /// <remarks>The albumID and albumKey can be located by looking in your gallery's url string.  `&Data=[albumID]_[albumKey]`</remarks>
         /// <exception cref="System.Exception">Invalid Type specified, nothing to return.</exception>
-        public T GetSmugMugGallery<T>(string smugMugAlbumId, string smugMugAlbumKey) {
+        public T GetSmugMugGallery<T> (string smugMugAlbumId, string smugMugAlbumKey)
+        {
             // Format the SmugMugFeedUrl with the appropriate input information
-            var url = string.Format(
+            var url = string.Format (
                 SmugMugGalleryFeedUrl,
                 smugMugAlbumId,
                 smugMugAlbumKey);
 
             // Deserialize the RSS feed into an OriginalSmugMugGallery Model
-            var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
+            var originalGallery = XmlRssReader.Deserialize<OriginalSmugMugGallery> (url);
 
             // returns an OriginalSmugMugGallery if requested
             if (typeof(T) == typeof(OriginalSmugMugGallery)) {
@@ -64,23 +67,24 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
 
             // Returns a SmugMugGallery if requested
             if (typeof(T) == typeof(SmugMugGallery)) {
-                return (T)(object)MapSmugMugGalleries(originalGallery);
+                return (T)(object)MapSmugMugGalleries (originalGallery);
             }
 
             // If the request was anything but the above Types, throw an error.
-            throw new Exception("Invalid Type specified, nothing to return.");
+            throw new Exception ("Invalid Type specified, nothing to return.");
         }
 
-		/// <summary>
-		/// Gets the smug mug gallery.
-		/// </summary>
-		/// <returns> The smug mug gallery. </returns>
-		/// <param name='smugMugAlbumId'> mug mug album identifier. </param>
-		/// <param name='smugMugAlbumKey'> Smug mug album key. </param>
-		public SmugMugGallery GetSmugMugGallery(string smugMugAlbumId, string smugMugAlbumKey) {
-			return GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey);
-		}
-
+        /// <summary>
+        /// Gets the smug mug gallery.
+        /// </summary>
+        /// <returns> The smug mug gallery. </returns>
+        /// <param name='smugMugAlbumId'> mug mug album identifier. </param>
+        /// <param name='smugMugAlbumKey'> Smug mug album key. </param>
+        public SmugMugGallery GetSmugMugGallery (string smugMugAlbumId, string smugMugAlbumKey)
+        {
+            return GetSmugMugGallery<SmugMugGallery> (smugMugAlbumId, smugMugAlbumKey);
+        }
+		
         /// <summary>
         /// Gets the smug mug image by GUID.
         /// </summary>
@@ -89,28 +93,30 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
         /// <param name="smugMugImageGuid">The smug mug image GUID.</param>
         /// <returns><see cref="SmugMugGallery.Image"/>.</returns>
         /// <exception cref="System.Exception">Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.</exception>
-        public SmugMugGallery.Image GetSmugMugGalleryImageByGuid(string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid) {
+        public SmugMugGallery.Image GetSmugMugGalleryImageByGuid (string smugMugAlbumId, string smugMugAlbumKey, string smugMugImageGuid)
+        {
 
             // Grab all Images from the specified gallery
-            var smGalleryImages = GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey).Images;
+            var smGalleryImages = GetSmugMugGallery<SmugMugGallery> (smugMugAlbumId, smugMugAlbumKey).Images;
 
             // Loop through the images to find the one specified by the smugMugImageGuid
             foreach (var image in smGalleryImages) {
-                if (smugMugImageGuid == image.Guid.ToString()) {
+                if (smugMugImageGuid == image.Guid.ToString ()) {
                     return image;
                 }
             }
 
             // Throw an error if an invalid image was specified
-			throw new Exception("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
+            throw new Exception ("Unable to find an image associated with the specified Guid within the specified SmugMug Gallery.");
         }
 
-        public OriginalSmugMugGallery GetSmugMugRecentGalleries(string smugMugNickname) {
-            var url = string.Format(
+        public OriginalSmugMugGallery GetSmugMugRecentGalleries (string smugMugNickname)
+        {
+            var url = string.Format (
                 SmugMugRecentGalleriesFeedUrl,
                 smugMugNickname);
 
-            return XmlRssReader.Deserialize<OriginalSmugMugGallery>(url);
+            return XmlRssReader.Deserialize<OriginalSmugMugGallery> (url);
         }
 
 
@@ -119,7 +125,8 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
         /// </summary>
         /// <param name="originalSmugMugGallery">The original smug mug gallery.</param>
         /// <returns>SmugMugGallery.</returns>
-        private static SmugMugGallery MapSmugMugGalleries(OriginalSmugMugGallery originalSmugMugGallery) {
+        private static SmugMugGallery MapSmugMugGalleries (OriginalSmugMugGallery originalSmugMugGallery)
+        {
             // generate a new Gallery Model
             var gallery = new SmugMugGallery {
                 Title = originalSmugMugGallery.Channel.Title,
@@ -189,17 +196,17 @@ namespace Infinitas.FeedModlr.SmugMug.Services {
                     // remaining sizes in the new list will simply be null.
                     var count = 0;
                     foreach (var i in img.Group.Contents) {
-                        imgType[count].Url = i.Url;
-                        imgType[count].FileSize = i.FileSize;
-                        imgType[count].Type = i.Type;
-                        imgType[count].Medium = i.Medium;
-                        imgType[count].Width = i.Width;
-                        imgType[count].Height = i.Height;
-                        imgType[count].Hash = i.Hash;
+                        imgType [count].Url = i.Url;
+                        imgType [count].FileSize = i.FileSize;
+                        imgType [count].Type = i.Type;
+                        imgType [count].Medium = i.Medium;
+                        imgType [count].Width = i.Width;
+                        imgType [count].Height = i.Height;
+                        imgType [count].Hash = i.Hash;
                         count++;
                     }
 
-                    gallery.Images.Add(image);
+                    gallery.Images.Add (image);
                 }
             }
 
