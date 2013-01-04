@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : Infinitas.FeedModlr
 // Author           : Chase Florell
 // Created          : 12-14-2012
@@ -75,14 +75,14 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         }
 
         /// <summary>
-        /// Gets the smug mug gallery.
+        /// Gets the smug mug gallery (<see cref="SmugMugGallery"/>).
         /// </summary>
         /// <returns> The smug mug gallery. </returns>
         /// <param name='smugMugAlbumId'> mug mug album identifier. </param>
         /// <param name='smugMugAlbumKey'> Smug mug album key. </param>
         public SmugMugGallery GetSmugMugGallery (string smugMugAlbumId, string smugMugAlbumKey)
         {
-            return GetSmugMugGallery<SmugMugGallery> (smugMugAlbumId, smugMugAlbumKey);
+            return GetSmugMugGallery<SmugMugGallery>(smugMugAlbumId, smugMugAlbumKey);
         }
 		
         /// <summary>
