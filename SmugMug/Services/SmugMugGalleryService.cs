@@ -84,7 +84,7 @@ namespace Infinitas.FeedModlr.SmugMug.Services
         {
             return GetSmugMugGallery<SmugMugGallery> (smugMugAlbumId, smugMugAlbumKey);
         }
-		
+        
         /// <summary>
         /// Gets the smug mug image by GUID.
         /// </summary>
